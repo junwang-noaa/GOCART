@@ -3362,37 +3362,34 @@ CONTAINS
       enddo
    endif
 
-   ! Channel values are 4.7e-7 5.5e-7 6.7e-7 8.7e-7 [meter]. Their indices are 1,2,3,4 respectively.
    do i = 1, size(wavelengths_profile)
-      if ((wavelengths_profile(i) .ge. 5.49e-7) .and. (wavelengths_profile(i) .le. 5.51e-7)) then
-         wavelengths_index_profile(i) = 2.
-      else if ((wavelengths_profile(i) .ge. 4.69e-7) .and. (wavelengths_profile(i) .le. 4.71e-7)) then
-         wavelengths_index_profile(i) = 1.
-      else if ((wavelengths_profile(i) .ge. 6.69e-7) .and. (wavelengths_profile(i) .le. 6.71e-7)) then
-         wavelengths_index_profile(i) = 3.
-      else if ((wavelengths_profile(i) .ge. 8.68e-7) .and. (wavelengths_profile(i) .le. 8.71e-7)) then
-         wavelengths_index_profile(i) = 4.
-      else
-         print*,'wavelengths_profile of ',wavelengths_profile(i),' is an invalid value.'
-         return
-      end if
+      wavelengths_index_profile(i) = -1
+      do j = 1, size(channels)
+         if(abs(wavelengths_profile(i) -  channels(j)) < 1.e-09) then
+            wavelengths_index_profile(i) = j
+         endif
+      end do
    end do
 
-   ! Channel values are 4.7e-7 5.5e-7 6.7e-7 8.7e-7 [meter]. Their indices are 1,2,3,4 respectively.
+   if ( any(wavelengths_index_profile<0) ) then
+      print*, 'wavelengths_profile requested ', 1.e09*wavelengths_profile, 'wavelengths loaded from the mietables ', 1.e09*channels
+      return
+   endif
+
+
    do i = 1, size(wavelengths_vertint)
-      if ((wavelengths_vertint(i) .ge. 5.49e-7) .and. (wavelengths_vertint(i) .le. 5.51e-7)) then
-         wavelengths_index_vertint(i) = 2.
-      else if ((wavelengths_vertint(i) .ge. 4.69e-7) .and. (wavelengths_vertint(i) .le. 4.71e-7)) then
-         wavelengths_index_vertint(i) = 1.
-      else if ((wavelengths_vertint(i) .ge. 6.69e-7) .and. (wavelengths_vertint(i) .le. 6.71e-7)) then
-         wavelengths_index_vertint(i) = 3.
-      else if ((wavelengths_vertint(i) .ge. 8.68e-7) .and. (wavelengths_vertint(i) .le. 8.71e-7)) then
-         wavelengths_index_vertint(i) = 4.
-      else
-         print*,'wavelengths_vertint of ',wavelengths_vertint(i),' is an invalid value.'
-         return
-      end if
+      wavelengths_index_vertint(i) = -1
+      do j = 1, size(channels)
+         if(abs(wavelengths_vertint(i) -  channels(j)) < 1.e-09) then
+            wavelengths_index_vertint(i) = j
+         endif
+      end do
    end do
+
+   if ( any(wavelengths_index_vertint<0) ) then
+      print*, 'wavelengths_vertint requested ', 1.e09 * wavelengths_vertint, 'wavelengths loaded from the mietables ', 1.e09 * channels
+      return
+   endif
 
 !  Determine if going to do Angstrom parameter calculation
 !  -------------------------------------------------------
@@ -3631,7 +3628,6 @@ CONTAINS
        enddo !wavelengths_vertint
       enddo !nbins
    endif !present(exttau)...
-
 !  Calculate the 470-870 Angstrom parameter
    if( present(angstrom) .and. associated(angstrom) .and. do_angstrom ) then
 
@@ -6857,37 +6853,34 @@ K_LOOP: do k = km, 1, -1
    wavelengths_index_profile = 0.
    wavelengths_index_vertint = 0.
 
-   ! Channel values are 4.7e-7 5.5e-7 6.7e-7 8.7e-7 [meter]. Their indices are 1,2,3,4 respectively.
    do i = 1, size(wavelengths_profile)
-      if ((wavelengths_profile(i) .ge. 5.49e-7) .and. (wavelengths_profile(i) .le. 5.51e-7)) then
-         wavelengths_index_profile(i) = 2.
-      else if ((wavelengths_profile(i) .ge. 4.69e-7) .and. (wavelengths_profile(i) .le. 4.71e-7)) then
-         wavelengths_index_profile(i) = 1.
-      else if ((wavelengths_profile(i) .ge. 6.69e-7) .and. (wavelengths_profile(i) .le. 6.71e-7)) then
-         wavelengths_index_profile(i) = 3.
-      else if ((wavelengths_profile(i) .ge. 8.69e-7) .and. (wavelengths_profile(i) .le. 8.71e-7)) then
-         wavelengths_index_profile(i) = 4.
-      else
-         print*,'wavelengths_profile of ',wavelengths_profile(i),' is an invalid value.'
-         return
-      end if
-   end do  
+      wavelengths_index_profile(i) = -1
+      do j = 1, size(channels)
+         if(abs(wavelengths_profile(i) -  channels(j)) < 1.e-09) then
+            wavelengths_index_profile(i) = j
+         endif
+      end do
+   end do
 
-   ! Channel values are 4.7e-7 5.5e-7 6.7e-7 8.7e-7 [meter]. Their indices are 1,2,3,4 respectively.
+   if ( any(wavelengths_index_profile<0) ) then
+     print*, 'wavelengths_profile requested ', 1.e09*wavelengths_profile, 'wavelengths loaded from the mietables ', 1.e09*channel  
+     return
+   endif
+
+
    do i = 1, size(wavelengths_vertint)
-      if ((wavelengths_vertint(i) .ge. 5.49e-7) .and. (wavelengths_vertint(i) .le. 5.51e-7)) then
-         wavelengths_index_vertint(i) = 2.
-      else if ((wavelengths_vertint(i) .ge. 4.69e-7) .and. (wavelengths_vertint(i) .le. 4.71e-7)) then
-         wavelengths_index_vertint(i) = 1.
-      else if ((wavelengths_vertint(i) .ge. 6.69e-7) .and. (wavelengths_vertint(i) .le. 6.71e-7)) then
-         wavelengths_index_vertint(i) = 3.
-      else if ((wavelengths_vertint(i) .ge. 8.69e-7) .and. (wavelengths_vertint(i) .le. 8.71e-7)) then
-         wavelengths_index_vertint(i) = 4.
-      else
-         print*,'wavelengths_profile of ',wavelengths_profile(i),' is an invalid value.'
-         return
-      end if
-   end do 
+      wavelengths_index_vertint(i) = -1
+      do j = 1, size(channels)
+         if(abs(wavelengths_vertint(i) -  channels(j)) < 1.e-09) then
+            wavelengths_index_vertint(i) = j
+         endif
+      end do
+   end do
+
+   if ( any(wavelengths_index_vertint<0) ) then
+      print*, 'wavelengths_vertint requested ', 1.e09 * wavelengths_vertint, 'wavelengths loaded from the mietables ', 1.e09 * channels
+      return
+   endif
 
 !  Determine if going to do Angstrom parameter calculation
 !  -------------------------------------------------------
