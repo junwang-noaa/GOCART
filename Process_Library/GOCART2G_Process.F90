@@ -6863,7 +6863,7 @@ K_LOOP: do k = km, 1, -1
    end do
 
    if ( any(wavelengths_index_profile<0) ) then
-     print*, 'wavelengths_profile requested ', 1.e09*wavelengths_profile, 'wavelengths loaded from the mietables ', 1.e09*channel  
+     print*, 'wavelengths_profile requested ', 1.e09*wavelengths_profile, 'wavelengths loaded from the mietables ', 1.e09 * channels  
      return
    endif
 
