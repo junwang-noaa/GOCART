@@ -1400,14 +1400,8 @@ contains
     call c_f_pointer(address, self)
 
     do n = 1, nbins
-      do i = 1, i2
-        do j = 1, j2
-          do k = 1, km
-            call Chem_MieQuery(self%diag_MieTable(instance), n, mieTable_index, q_4d(i,j,k,n), rh(i,j,k), tau(i,j,k), __RC__)
-            tau_s(i,j,k) = tau_s(i,j,k) + tau(i,j,k)
-          end do
-        end do
-      end do
+      call Chem_MieQuery(self%diag_MieTable(instance), n, mieTable_index, q_4d(:,:,:,n), rh, tau=tau, __RC__)
+      tau_s = tau_s + tau
     end do
 
     call ESMF_AttributeGet(state, name='monochromatic_extinction_in_air_due_to_ambient_aerosol', value=fld_name, __RC__)
