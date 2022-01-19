@@ -1400,7 +1400,7 @@ contains
     call c_f_pointer(address, self)
 
     do n = 1, nbins
-      call Chem_MieQuery(self%diag_MieTable(instance), n, mieTable_index, q_4d(:,:,:,n), rh, tau=tau, __RC__)
+      call Chem_MieQuery(self%diag_MieTable(instance), n, mieTable_index, q_4d(:,:,:,n), rh, tau=tau)
       tau_s = tau_s + tau
     end do
 
