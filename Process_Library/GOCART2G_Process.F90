@@ -3988,7 +3988,6 @@ CONTAINS
 
       call this%rewind(__RC__)
       call this%scan_to_label(label, __RC__)
-!      print*,__FILE__,__LINE__, ' found label'
 
       dims = 0
       do
