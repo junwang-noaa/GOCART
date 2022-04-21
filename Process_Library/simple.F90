@@ -1062,8 +1062,6 @@ CONTAINS
 !
 
 #include "CAEmission.F90"
-
-
    subroutine distribute_aviation_emissions(delp, rhoa, z_bot, z_top, emissions_layer, emissions, i1, i2, j1, j2, km, grav)
 
     implicit none
@@ -1773,8 +1771,6 @@ CONTAINS
 
    allocate(pSO2_DMS, mold=tmpu)
    allocate(pMSA_DMS, mold=tmpu)
-   pSO2_DMS = 0.0
-   pMSA_DMS = 0.0
 
 !  spatial loop
    do k = klid, km
@@ -1940,9 +1936,6 @@ CONTAINS
    allocate(pSO4g_SO2, mold=tmpu)
    allocate(pSO4aq_SO2, mold=tmpu)
    allocate(fout(i2,j2))
-   pSO4g_SO2 = 0.0
-   pSO4aq_SO2 = 0.0
-   fout = 0.0
 
 !  Conversion of SO2 mmr to SO2 vmr
    fMR = airMolWght / fMassSO2
@@ -2209,7 +2202,6 @@ CONTAINS
    i2 = ubound(qa, 1)
 
    allocate(fout(i2,j2))
-   fout = 0.0
 
 !  spatial loop
    do k = klid, km
@@ -3896,41 +3888,21 @@ CONTAINS
 !
 #include "Chem_UtilResVal.F90"
 !==================================================================================
-!BOP
-!
-! !IROUTINE:  Chem_UtilIdow
-!
-! !INTERFACE:
-!
+
 #include "Chem_UtilIdow.F90"
-!==================================================================================
-!BOP
-!
-! !IROUTINE:  Chem_UtilCdow
-!
-! !INTERFACE:
-!
 #include "Chem_UtilCdow.F90"
 
 !==================================================================================
+
 !BOP
 !
 ! !ROUTINE:  Chem_BiomassDiurnal - Applies diurnal cycle to biomass emissions.
 !
 ! !INTERFACE:
-#include "Chem_BiomassDiurnal.F90"
-!==================================================================================
-!BOP
-!
-! !ROUTINE: ReadPointEmissions
-!
-! !INTERFACE:
+#include "Chem_BiomassDiurnal.F90"!==================================================================================
 
 #include "ReadPointEmissions.F90"
-
 !==================================================================================
-
-
    subroutine open(this, filename, rc)
       class(EmissionReader), intent(inout) :: this
       character(*), intent(in) :: filename
